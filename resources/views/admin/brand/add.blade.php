@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h4 class="card-title mb-4">Add Brand Form</h4>
                     <p class="text-center text-success">{{Session::get('message')}}</p>
-                    <form action="{{route('brand.new')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('brand.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row mb-4">
                             <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Brand name</label>

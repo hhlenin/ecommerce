@@ -11,19 +11,17 @@ class Unit extends Model
     private static $unit;
 
 
-    public static function newUnit($bitm)
+    public static function storeUnit($request, $id = null)
     {
-        self::$unit = new Unit();
-        self::$unit->name           = $bitm->name;
-        self::$unit->description    = $bitm->description;
-        self::$unit->save();
-    }
-
-    public static function updateUnit($request, $id)
-    {
-        self::$unit = Unit::find($id);
+        if (!isset($id)) {
+            self::$unit = new Unit();          
+        }
+        elseif (isset($id)) {
+            self::$unit = Unit::find($id);
+        }
         self::$unit->name           = $request->name;
         self::$unit->description    = $request->description;
         self::$unit->save();
     }
+
 }

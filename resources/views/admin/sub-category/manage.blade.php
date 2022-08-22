@@ -34,7 +34,7 @@
                                 <a href="{{route('sub-category.edit', ['id' => $sub_category->id])}}" class="btn btn-success btn-sm">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="" class="btn btn-danger btn-sm" onclick="event.preventDefault(); document.getElementById('subCategoryDeleteForm{{$sub_category->id}}').submit();">
+                                <a href="" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure?'); document.getElementById('subCategoryDeleteForm{{$sub_category->id}}').submit();">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 <form action="{{route('sub-category.delete', ['id' => $sub_category->id])}}" method="POST" id="subCategoryDeleteForm{{$sub_category->id}}">

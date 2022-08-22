@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h4 class="card-title mb-4">Add Unit Form</h4>
                     <p class="text-center text-success">{{Session::get('message')}}</p>
-                    <form action="{{route('unit.new')}}" method="POST">
+                    <form action="{{route('unit.store')}}" method="POST">
                         @csrf
                         <div class="form-group row mb-4">
                             <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Unit name</label>

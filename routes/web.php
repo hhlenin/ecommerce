@@ -14,16 +14,6 @@ use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerDashboardController;
 use App\Http\Controllers\AdminOrderController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', [EcommerceController::class, 'index'])->name('home');
 Route::get('/product-category/{id}', [EcommerceController::class, 'categoryProduct'])->name('product-category');
@@ -35,7 +25,7 @@ Route::post('/update-cart-product/{id}', [CartController::class, 'update'])->nam
 Route::get('/delete-cart-product/{id}', [CartController::class, 'delete'])->name('delete-cart-product');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
-Route::post('/new-order', [CheckoutController::class, 'nefwOrder'])->name('new-order');
+Route::post('/new-order', [CheckoutController::class, 'newOrder'])->name('new-order');
 Route::get('/complete-order', [CheckoutController::class, 'completeOrder'])->name('complete-order');
 
 Route::get('/customer-login', [CustomerAuthController::class, 'login'])->name('customer-login')->middleware('customerLogout');
@@ -65,19 +55,9 @@ Route::middleware([ 'auth:sanctum',config('jetstream.auth_session'),'verified'])
     Route::post('/update-sub-category/{id}', [SubCategoryController::class, 'update'])->name('sub-category.update');
     Route::post('/delete-sub-category/{id}', [SubCategoryController::class, 'delete'])->name('sub-category.delete');
 
-    Route::get('/add-brand', [BrandController::class, 'index'])->name('brand.add');
-    Route::post('/new-brand', [BrandController::class, 'create'])->name('brand.new');
-    Route::get('/manage-brand', [BrandController::class, 'manage'])->name('brand.manage');
-    Route::get('/edit-brand/{id}', [BrandController::class, 'edit'])->name('brand.edit');
-    Route::post('/update-brand/{id}', [BrandController::class, 'update'])->name('brand.update');
-    Route::post('/delete-brand/{id}', [BrandController::class, 'delete'])->name('brand.delete');
+    Route::resource('/brand', BrandController::class);
 
-    Route::get('/add-unit', [UnitController::class, 'index'])->name('unit.add');
-    Route::post('/new-unit', [UnitController::class, 'create'])->name('unit.new');
-    Route::get('/manage-unit', [UnitController::class, 'manage'])->name('unit.manage');
-    Route::get('/edit-unit/{id}', [UnitController::class, 'edit'])->name('unit.edit');
-    Route::post('/update-unit/{id}', [UnitController::class, 'update'])->name('unit.update');
-    Route::post('/delete-unit/{id}', [UnitController::class, 'delete'])->name('unit.delete');
+    Route::resource('/unit', UnitController::class);
 
     Route::get('/add-product', [ProductController::class, 'index'])->name('product.add');
     Route::get('/get-sub-category-by-category-id', [ProductController::class, 'getSubCategory'])->name('product.sub-category');

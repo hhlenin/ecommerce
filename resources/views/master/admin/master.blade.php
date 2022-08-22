@@ -149,8 +149,8 @@
                             <span>Brand Module</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{route('brand.add')}}">Add Brand</a></li>
-                            <li><a href="{{route('brand.manage')}}">Manage Brand</a></li>
+                            <li><a href="{{route('brand.create')}}">Add Brand</a></li>
+                            <li><a href="{{route('brand.index')}}">Manage Brand</a></li>
                         </ul>
                     </li>
 
@@ -160,8 +160,8 @@
                             <span>Unit Module</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{route('unit.add')}}">Add Unit</a></li>
-                            <li><a href="{{route('unit.manage')}}">Manage Unit</a></li>
+                            <li><a href="{{route('unit.create')}}">Add Unit</a></li>
+                            <li><a href="{{route('unit.index')}}">Manage Unit</a></li>
                         </ul>
                     </li>
 

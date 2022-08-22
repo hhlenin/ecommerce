@@ -17,7 +17,7 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
-        Category::newCategory($request);
+        Category::storeCategory($request);
         return redirect()->back()->with('message', 'Category info create successfully.');
     }
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        Category::updateCategory($request, $id);
+        Category::storeCategory($request, $id);
         return redirect('/manage-category')->with('message', 'Category info update successfully.');
     }
 

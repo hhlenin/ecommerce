@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class SubCategoryController extends Controller
 {
     private $categories;
-    private $category;
     private $subCategory;
     private $subCategories;
 
@@ -21,7 +20,7 @@ class SubCategoryController extends Controller
 
     public function create(Request $request)
     {
-        SubCategory::newSubCategory($request);
+        SubCategory::storeSubCategory($request);
         return redirect()->back()->with('message', 'Sub category info create successfully.');
     }
 
@@ -43,11 +42,11 @@ class SubCategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        SubCategory::updateSubCategory($request, $id);
+        SubCategory::storeSubCategory($request, $id);
         return redirect('/manage-sub-category')->with('message', 'Sub category info update successfully.');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         SubCategory::deleteSubCategory($id);
         return redirect('/manage-sub-category')->with('message', 'Sub category info delete successfully.');

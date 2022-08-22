@@ -28,12 +28,16 @@
                                 <td>{{$unit->description}}</td>
                                 <td>{{$unit->status == 1 ? 'Published' : 'Unpublished'}}</td>
                                 <td>
-                                    <a href="{{route('unit.edit', ['id' => $unit->id])}}" class="btn btn-success btn-sm">
+                                    <a href="{{route('unit.edit', $unit->id)}}" class="btn btn-success btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="{{route('unit.delete', ['id' => $unit->id])}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this..');">
+                                    <a href="" class="btn btn-danger btn-sm" onclick='event.preventDefault(); confirm("Are you sure to delete this.."); document.getElementById("deleteUnit{{$unit->id}}").submit()'>
                                         <i class="fa fa-trash"></i>
                                     </a>
+                                    <form action="{{route('unit.destroy',$unit->id)}}" method="POST" id="deleteUnit{{$unit->id}}">
+                                        @csrf
+                                        @method("DELETE")
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

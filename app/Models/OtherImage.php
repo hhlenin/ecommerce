@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class OtherImage extends Model
 {
@@ -17,8 +18,8 @@ class OtherImage extends Model
 
     public static function getImageUrl($otherImage)
     {
-        self::$imageName = $otherImage->getClientOriginalName();
-        self::$directory  = 'other-images/';
+        self::$imageName = Str::random(10).time().'.'.$otherImage->getClientOriginalExtension();
+        self::$directory  = 'images/other-images/';
         $otherImage->move(self::$directory, self::$imageName);
         self::$imageUrl = self::$directory.self::$imageName;
         return self::$imageUrl;

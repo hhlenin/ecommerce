@@ -30,15 +30,17 @@
                                 <td><img src="{{asset($brand->image)}}" alt="" height="50" width="80"/></td>
                                 <td>{{$brand->status == 1 ? 'Published' : 'Unpublished'}}</td>
                                 <td>
-                                    <a href="{{route('brand.edit', ['id' => $brand->id])}}" class="btn btn-success btn-sm">
+                                    <a href="{{route('brand.edit', $brand->id)}}" class="btn btn-success btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <form action="{{route('brand.delete', ['id' => $brand->id])}}" method="POST">
+                                    
+                                    <a href="" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure?'); document.getElementById('deleteBrand{{ $brand->id }}').submit()">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <form action="{{route('brand.destroy', $brand->id)}}" method="POST" id="deleteBrand{{$brand->id}}">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete this..');">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </form>
+                                        @method('DELETE')
+                                    </form>       
                                 </td>
                             </tr>
                         @endforeach

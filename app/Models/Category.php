@@ -4,55 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Helper\ImageUpload;
 
 class Category extends Model
 {
     use HasFactory;
     private static $category;
-    private static $image;
-    private static $imageName;
-    private static $imageUrl;
-    private static $directory;
 
-    public static function getImageUrl($a)
-    {
-        self::$image = $a->file('image');
-        self::$imageName = self::$image->getClientOriginalName();
-        self::$directory  = 'category-images/';
-        self::$image->move(self::$directory, self::$imageName);
-        self::$imageUrl = self::$directory.self::$imageName;
-        return self::$imageUrl;
-    }
 
-    public static function newCategory($bitm)
+    public static function storeCategory($request, $id = null)
     {
-        self::$category = new Category();
-        self::$category->name           = $bitm->name;
-        self::$category->description    = $bitm->description;
-        self::$category->image          = self::getImageUrl($bitm);
-        self::$category->save();
-    }
-
-    public static function updateCategory($request, $id)
-    {
-        self::$category = Category::find($id);
-        if ($request->file('image'))
-        {
-            if (file_exists(self::$category->image))
-            {
-                unlink(self::$category->image);
-            }
-            self::$imageUrl = self::getImageUrl($request);
+        if (!isset($id)) {
+            self::$category = new Category();
         }
-        else
-        {
-            self::$imageUrl = self::$category->image;
+        elseif (isset($id)) {
+            self::$category = Category::find($id);
         }
         self::$category->name           = $request->name;
         self::$category->description    = $request->description;
-        self::$category->image          = self::$imageUrl;
+        if ( isset( $request->image )) {
+            self::$category->image      = ImageUpload::getImageUrl($request, 'images/category-images/', self::$category->image);
+        }
         self::$category->save();
     }
+
 
     public function subCategories()
     {

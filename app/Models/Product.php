@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helper\ImageUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,40 +14,19 @@ class Product extends Model
     private static $image;
     private static $imageName;
     private static $imageUrl;
-    private static $directory;
+    private static $directory = 'images/product-images/';
     private static $otherImages;
-
-    public static function getImageUrl($a)
-    {
-        self::$image = $a->file('image');
-        self::$imageName = self::$image->getClientOriginalName();
-        self::$directory  = 'product-images/';
-        self::$image->move(self::$directory, self::$imageName);
-        self::$imageUrl = self::$directory.self::$imageName;
-        return self::$imageUrl;
-    }
 
     public static function newProduct($request)
     {
-        return Product::saveBasicInfo(new Product(), $request, self::getImageUrl($request));
+        return Product::saveBasicInfo(new Product(), $request, ImageUpload::getImageUrl($request, self::$directory));
     }
 
     public static function updateProduct($request, $id)
     {
         self::$product = Product::find($id);
-        if ($request->file('image'))
-        {
-            if (file_exists(self::$product->image))
-            {
-                unlink(self::$product->image);
-            }
-            self::$imageUrl = self::getImageUrl($request);
-        }
-        else
-        {
-            self::$imageUrl = self::$product->image;
-        }
-        Product::saveBasicInfo(self::$product, $request, self::$imageUrl);
+        
+        Product::saveBasicInfo(self::$product, $request, ImageUpload::getImageUrl($request, self::$directory, self::$product->image));
     }
 
     public static function saveBasicInfo($product, $request, $imageUrl)
